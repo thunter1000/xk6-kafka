@@ -11,7 +11,7 @@ RUN go mod download
 
 COPY . .
 
-RUN xk6 build --output /k6
+RUN xk6 build --output /k6 --with github.com/mostafa/xk6-kafka@latest="."
 
 # Use the operator's base image and override the k6 binary
 FROM loadimpact/k6:latest
