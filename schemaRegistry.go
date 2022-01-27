@@ -46,10 +46,15 @@ func addMagicByteAndSchemaIdPrefix(configuration Configuration, avroData []byte,
 var schemaIdCache = make(map[string]uint32)
 
 func getSchemaId(configuration Configuration, topic string, keyOrValue string, schema string) (uint32, error) {
+
 	if schemaIdCache[schema] > 0 {
 		return schemaIdCache[schema], nil
 	}
 	if useKafkaAvroSerializer(configuration, keyOrValue) {
+		if configuration.SchemaRegistry.SchemaId > 0 {
+			return configuration.SchemaRegistry.SchemaId, nil
+		}
+
 		url := configuration.SchemaRegistry.Url + "/subjects/" + topic + "-" + keyOrValue + "/versions"
 		codec, _ := goavro.NewCodec(schema)
 

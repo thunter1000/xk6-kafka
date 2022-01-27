@@ -23,6 +23,7 @@ type BasicAuth struct {
 type SchemaRegistryConfiguration struct {
 	Url       string    `json:"url"`
 	BasicAuth BasicAuth `json:"basicAuth"`
+	SchemaId  uint32    `json:"schemaId"`
 }
 
 type Configuration struct {
